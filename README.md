@@ -1,14 +1,14 @@
 /src <br/>
-  /components
-    TaskForm.js       # Form to add new tasks
-    TaskItem.js       # Displays a single task in a list
-    TaskList.js       # Displays a list of all tasks
-    EditTaskModal.js  # Modal for editing task details
-  App.js              # Main component
-  index.js            # Entry point of the app
-  app.css             # Global CSS styles
+  /components <br/>
+    TaskForm.js       # Form to add new tasks <br/>
+    TaskItem.js       # Displays a single task in a list <br/>
+    TaskList.js       # Displays a list of all tasks <br/>
+    EditTaskModal.js  # Modal for editing task details <br/>
+  App.js              # Main component <br/>
+  index.js            # Entry point of the app <br/>
+  app.css             # Global CSS styles <br/>
 
-  # Task Tracker - React App
+  # Task Tracker - React App <br/>
 
 This is a simple React application that allows users to manage daily tasks. It allows you to add, view, edit, and delete tasks. The tasks are stored in the browser's local storage for data persistence. The app also features basic styling using Tailwind CSS.
 
