@@ -20,4 +20,4 @@ This is a simple React application that allows users to manage daily tasks. It a
 - **Delete Task**: Delete tasks with a confirmation prompt.
 - **Responsive**: The application is fully responsive, ensuring usability across various devices.
 - **Data Persistence**: Tasks are stored in the browser's local storage to retain data even after page refresh.
-# Task-Tracker
+
