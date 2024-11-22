@@ -1,62 +1,73 @@
 import React, { useState } from 'react';
 
 function TaskForm({ onAddTask }) {
-    const [title, setTitle] = useState('');
-    const [description, setDescription] = useState('');
-    const [dueDate, setDueDate] = useState('');
-    const [status, setStatus] = useState('Pending');
+    const [task, setTask] = useState({
+        id: '',
+        title: '',
+        description: '',
+        dueDate: '',
+        status: 'Pending',
+    });
+
+    const handleChange = (e) => {
+        const { name, value } = e.target;
+        setTask({ ...task, [name]: value });
+    };
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        if (!title || !description || !dueDate) return;
 
-        const newTask = {
-            id: new Date().getTime(),
-            title,
-            description,
-            dueDate,
-            status,
-        };
-
-        onAddTask(newTask);
-        setTitle('');
-        setDescription('');
-        setDueDate('');
-        setStatus('Pending');
+        // Ensure that all fields are filled out
+        if (task.title && task.description && task.dueDate) {
+            const newTask = { ...task, id: Date.now() }; // Unique ID using Date.now()
+            onAddTask(newTask); // Call the passed function to add the task
+            setTask({
+                id: '',
+                title: '',
+                description: '',
+                dueDate: '',
+                status: 'Pending',
+            }); // Reset form fields
+        } else {
+            alert("Please fill in all fields");
+        }
     };
 
     return (
-        <form onSubmit={handleSubmit} className="task-form bg-white p-4 rounded-lg shadow-md">
-            <h2 className="text-xl font-semibold mb-4">Add Task</h2>
+        <form onSubmit={handleSubmit} className="mb-4">
             <input
                 type="text"
-                placeholder="Title"
-                value={title}
-                onChange={(e) => setTitle(e.target.value)}
-                className="w-full p-2 mb-2 border rounded"
+                name="title"
+                value={task.title}
+                onChange={handleChange}
+                placeholder="Task Title"
+                className="border p-2 mb-2 w-full"
             />
             <textarea
-                placeholder="Description"
-                value={description}
-                onChange={(e) => setDescription(e.target.value)}
-                className="w-full p-2 mb-2 border rounded"
-            />
+                name="description"
+                value={task.description}
+                onChange={handleChange}
+                placeholder="Task Description"
+                className="border p-2 mb-2 w-full"
+            ></textarea>
             <input
                 type="date"
-                value={dueDate}
-                onChange={(e) => setDueDate(e.target.value)}
-                className="w-full p-2 mb-2 border rounded"
+                name="dueDate"
+                value={task.dueDate}
+                onChange={handleChange}
+                className="border p-2 mb-2 w-full"
             />
             <select
-                value={status}
-                onChange={(e) => setStatus(e.target.value)}
-                className="w-full p-2 mb-2 border rounded"
+                name="status"
+                value={task.status}
+                onChange={handleChange}
+                className="border p-2 mb-2 w-full"
             >
                 <option value="Pending">Pending</option>
                 <option value="In Progress">In Progress</option>
                 <option value="Completed">Completed</option>
             </select>
-            <button type="submit" className="w-full bg-blue-500 text-white py-2 rounded-md">
+            <button type="submit" className="bg-blue-500 text-white p-2 w-full">
                 Add Task
             </button>
         </form>

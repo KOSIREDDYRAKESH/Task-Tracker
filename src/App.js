@@ -1,45 +1,44 @@
-import React, { useState } from 'react';
-import TaskForm from './Components/TaskForm';
+import React, { useState, useEffect } from 'react';
 import TaskList from './Components/TaskList';
-import EditTaskModal from './Components/EditTaskModal';
+import TaskForm from './Components/TaskForm';
 
 function App() {
   const [tasks, setTasks] = useState([]);
-  const [isModalOpen, setIsModalOpen] = useState(false);
-  const [taskToEdit, setTaskToEdit] = useState(null);
 
-  const handleAddTask = (newTask) => {
-    setTasks([...tasks, newTask]);
+  // Fetch tasks from local storage when the component mounts
+  useEffect(() => {
+    const storedTasks = JSON.parse(localStorage.getItem('tasks')) || [];
+    setTasks(storedTasks);
+  }, []);
+
+  // Add new task
+  const addTask = (task) => {
+    const updatedTasks = [...tasks, task];
+    setTasks(updatedTasks);
+    localStorage.setItem('tasks', JSON.stringify(updatedTasks));
   };
 
-  const handleEditTask = (updatedTask) => {
+  // Delete a task
+  const deleteTask = (id) => {
+    const updatedTasks = tasks.filter((task) => task.id !== id);
+    setTasks(updatedTasks);
+    localStorage.setItem('tasks', JSON.stringify(updatedTasks)); // Update localStorage
+  };
+
+  // Update a task
+  const updateTask = (updatedTask) => {
     const updatedTasks = tasks.map((task) =>
       task.id === updatedTask.id ? updatedTask : task
     );
     setTasks(updatedTasks);
-    setIsModalOpen(false); // Close modal after saving
-  };
-
-  const handleOpenEditModal = (task) => {
-    setTaskToEdit(task);
-    setIsModalOpen(true);
-  };
-
-  const handleDeleteTask = (taskId) => {
-    const filteredTasks = tasks.filter((task) => task.id !== taskId);
-    setTasks(filteredTasks);
+    localStorage.setItem('tasks', JSON.stringify(updatedTasks)); // Update localStorage
   };
 
   return (
-    <div className="App bg-gray-100 min-h-screen py-8">
-      <div className="container mx-auto p-4">
-        <h1 className="text-3xl font-bold text-center mb-8">Task Tracker</h1>
-        <TaskForm onAddTask={handleAddTask} />
-        <TaskList tasks={tasks} onEditTask={handleOpenEditModal} onDeleteTask={handleDeleteTask} />
-        {isModalOpen && (
-          <EditTaskModal task={taskToEdit} onEditTask={handleEditTask} />
-        )}
-      </div>
+    <div className="container mx-auto p-4">
+      <h1 className="text-4xl font-bold mb-4">Task Tracker</h1>
+      <TaskForm onAddTask={addTask} />
+      <TaskList tasks={tasks} onDelete={deleteTask} onUpdate={updateTask} />
     </div>
   );
 }
