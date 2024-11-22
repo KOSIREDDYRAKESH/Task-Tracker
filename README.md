@@ -1,12 +1,12 @@
 /src <br/>
   /components <br/>
-    TaskForm.js       # Form to add new tasks <br/>
-    TaskItem.js       # Displays a single task in a list <br/>
-    TaskList.js       # Displays a list of all tasks <br/>
-    EditTaskModal.js  # Modal for editing task details <br/>
-  App.js              # Main component <br/>
-  index.js            # Entry point of the app <br/>
-  app.css             # Global CSS styles <br/>
+    - TaskForm.js       # Form to add new tasks <br/>
+    - TaskItem.js       # Displays a single task in a list <br/>
+    - TaskList.js       # Displays a list of all tasks <br/>
+    - EditTaskModal.js  # Modal for editing task details <br/>
+  - App.js              # Main component <br/>
+  - index.js            # Entry point of the app <br/>
+  - app.css             # Global CSS styles <br/>
 
   # Task Tracker - React App <br/>
 
